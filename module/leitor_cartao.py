@@ -11,8 +11,9 @@ Credits and License: Created by Erivando Sena
 """
 
 import threading
-from time import sleep
+import time 
 
+from time import sleep
 from module.nfc_522 import Nfc522
 from module.player import Player
 
@@ -89,6 +90,10 @@ class LeitorCartao(threading.Thread):
     def update_volumes(self, numero):
         if numero == tag1:
             self.music_player.set_volume1(1)
+            time.sleep(30)
+            self.music_player.set_volume1(0.05)
         elif numero == tag2:
             self.music_player.set_volume2(1)
+            time.sleep(30)
+            self.music_player.set_volume2(0.05)
 
