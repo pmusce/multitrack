@@ -19,11 +19,11 @@ class Player():
     def callback(in_data, frame_count, time_info, status):
       data1 = self.sound1.readframes(frame_count)
       data2 = self.sound2.readframes(frame_count)
-      data3 = self.sound3.readframes(frame_count)
+      #data3 = self.sound3.readframes(frame_count)
 
       decodeddata1 = numpy.fromstring(data1, numpy.int16)
       decodeddata2 = numpy.fromstring(data2, numpy.int16)
-     #decodeddata3 = numpy.fromstring(data3, numpy.int16)
+      #decodeddata3 = numpy.fromstring(data3, numpy.int16)
 
       newdata = (decodeddata1 * self.volume1 + decodeddata2 * self.volume2).astype(numpy.int16)
 
