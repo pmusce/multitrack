@@ -42,8 +42,10 @@ class Player():
   def play(self):
     self.stream.start_stream()
 
-  def set_volumes(self, volume1, volume2):
+  def set_volume1(self, volume1):
     self.volume1 = volume1
+
+  def set_volume2(self, volume2):
     self.volume2 = volume2
 
   def stop(self):

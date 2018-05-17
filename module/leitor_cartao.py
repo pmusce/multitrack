@@ -43,8 +43,10 @@ class LeitorCartao(threading.Thread):
 
     def run(self):
         # Set volumes to 0 and play music
-        self.music_player.set_volumes(0,0)
+        self.music_player.set_volume1(0)
+        self.music_player.set_volume2(0)
         self.music_player.play()
+        
         print "%s. Run... " % self.name
         while not self._stopevent.isSet():
             self.ler()
@@ -90,7 +92,7 @@ class LeitorCartao(threading.Thread):
         print numero
 
         if numero == tag1:
-            self.music_player.set_volumes(0.2,1)
+            self.music_player.set_volume1(1)
         elif numero == tag2:
-            self.music_player.set_volumes(1,0.2)
+            self.music_player.set_volume2(1)
 
