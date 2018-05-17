@@ -2,15 +2,16 @@ import sys
 import time
 
 from module.player import Player
-
-"""
 from module.leitor_cartao import LeitorCartao
-
 
 reader_card = LeitorCartao()
 
+music_player = Player()
+stream = music_player.get_stream()
+
 try:
-    while True:
+    while stream.is_active():
+        music_player.play()
         if not reader_card.isAlive():
             reader_card.start()
 except KeyboardInterrupt:
@@ -33,3 +34,4 @@ while stream.is_active():
     time.sleep(5)
     print "GUITAR only"
     music_player.update_volumes(0.2,1)
+"""
