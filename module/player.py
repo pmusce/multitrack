@@ -40,12 +40,15 @@ class Player():
     return self.stream
 
   def play(self):
+    print "Music starts..."
     self.stream.start_stream()
 
   def set_volume1(self, volume1):
+    print "Update volume1 to" + volume1
     self.volume1 = volume1
 
   def set_volume2(self, volume2):
+    print "Update volume2 to" + volume2
     self.volume2 = volume2
 
   def stop(self):

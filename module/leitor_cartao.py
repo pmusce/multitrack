@@ -46,7 +46,7 @@ class LeitorCartao(threading.Thread):
         self.music_player.set_volume1(0)
         self.music_player.set_volume2(0)
         self.music_player.play()
-        
+
         print "%s. Run... " % self.name
         while not self._stopevent.isSet():
             self.ler()
@@ -89,8 +89,6 @@ class LeitorCartao(threading.Thread):
             print e
 
     def update_volumes(self, numero):
-        print numero
-
         if numero == tag1:
             self.music_player.set_volume1(1)
         elif numero == tag2:
