@@ -1,4 +1,4 @@
- #!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
@@ -12,32 +12,45 @@ Credits and License: Created by Erivando Sena
 
 import threading
 from time import sleep
+
 from module.nfc_522 import Nfc522
+from module.player import Player
 
 __author__ = "Erivando Sena Ramos"
 __copyright__ = "Erivando Sena (2016)"
 __email__ = "erivandoramos@bol.com.br"
 __status__ = "Prototype"
 
+tag1 = "3541237681"
+tag2 = "3541300382"
+
 
 class LeitorCartao(threading.Thread):
-    
+
     nfc = Nfc522()
     numero_cartao = None
+
     
+
     def __init__(self, intervalo=0.2):
         threading.Thread.__init__(self)
         self._stopevent = threading.Event()
         self._sleepperiod = intervalo
         self.name = 'Thread LeitorCartao'
-        
+
+        self.music_player = Player()     
+        self.stream = self.music_player.get_stream()
+
     def run(self):
+        # Set volumes to 0 and play music
+        self.music_player.set_volumes(0,0)
+        self.music_player.play()
         print "%s. Run... " % self.name
         while not self._stopevent.isSet():
             self.ler()
             self._stopevent.wait(self._sleepperiod)
         print "%s.Turning off..." % (self.getName(),)
-        
+
     def obtem_numero_cartao_rfid(self):
         id = None
         try:
@@ -47,29 +60,37 @@ class LeitorCartao(threading.Thread):
                     id = str(id).zfill(10)
                     if (len(id) >= 10):
                         self.numero_cartao = id
-                        print "Read TAG Number: " +str(self.numero_cartao)
+                        print "Read TAG Number: " + str(self.numero_cartao)
                         return self.numero_cartao
                     else:
-                        print "Error TAG Number: " +str(self.numero_cartao)
+                        print "Error TAG Number: " + str(self.numero_cartao)
                         id = None
                         return None
                 else:
                     return id
         except Exception as e:
             print e
-            
+
     def ler(self):
         try:
             if self.obtem_numero_cartao_rfid():
-                self.valida_cartao(self.numero_cartao)
+                self.update_volumes(self.numero_cartao)
             else:
                 return None
         except Exception as e:
             print e
-            
+
     def valida_cartao(self, numero):
         try:
             print "I make interesting operations here with the tag:" + str(numero)
         except Exception as e:
             print e
-			
+
+    def update_volumes(self, numero):
+        print numero
+
+        if numero == tag1:
+            self.music_player.set_volumes(0.2,1)
+        elif numero == tag2:
+            self.music_player.set_volumes(1,0.2)
+

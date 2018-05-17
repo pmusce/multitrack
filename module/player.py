@@ -26,7 +26,7 @@ class Player():
       decodeddata3 = numpy.fromstring(data3, numpy.int16)
 
       newdata = (decodeddata1 * self.volume1 + decodeddata2 * self.volume2 + decodeddata3 * 1).astype(numpy.int16)
-      
+
       return (newdata.tostring(), pyaudio.paContinue)
 
     # open stream using callback (3)
@@ -42,7 +42,7 @@ class Player():
   def play(self):
     self.stream.start_stream()
 
-  def update_volumes(self, volume1, volume2):
+  def set_volumes(self, volume1, volume2):
     self.volume1 = volume1
     self.volume2 = volume2
 

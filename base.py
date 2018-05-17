@@ -1,17 +1,12 @@
 import sys
 import time
 
-from module.player import Player
 from module.leitor_cartao import LeitorCartao
 
 reader_card = LeitorCartao()
 
-music_player = Player()
-stream = music_player.get_stream()
-
 try:
-    while stream.is_active():
-        music_player.play()
+    while True:
         if not reader_card.isAlive():
             reader_card.start()
 except KeyboardInterrupt:
