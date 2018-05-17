@@ -11,7 +11,7 @@ Credits and License: Created by Erivando Sena
 """
 
 import threading
-import time 
+import time
 
 from time import sleep
 from module.nfc_522 import Nfc522
@@ -31,15 +31,13 @@ class LeitorCartao(threading.Thread):
     nfc = Nfc522()
     numero_cartao = None
 
-    
-
     def __init__(self, intervalo=0.2):
         threading.Thread.__init__(self)
         self._stopevent = threading.Event()
         self._sleepperiod = intervalo
         self.name = 'Thread LeitorCartao'
 
-        self.music_player = Player()     
+        self.music_player = Player()
         self.stream = self.music_player.get_stream()
 
     def run(self):
@@ -75,9 +73,9 @@ class LeitorCartao(threading.Thread):
     def ler(self):
         try:
             if self.obtem_numero_cartao_rfid():
-                self.update_volumes(self.numero_cartao)
+                self.update_volumes(self.numero_cartao, 1.0)
             else:
-                return None
+                self.update_volumes(self.numero_cartao, 0.05)
         except Exception as e:
             print e
 
@@ -87,13 +85,8 @@ class LeitorCartao(threading.Thread):
         except Exception as e:
             print e
 
-    def update_volumes(self, numero):
+    def update_volumes(self, numero, volume):
         if numero == tag1:
-            self.music_player.set_volume1(1)
-            time.sleep(0.2)
-            self.music_player.set_volume1(0.05)
+            self.music_player.set_volume1(volume)
         elif numero == tag2:
-            self.music_player.set_volume2(1)
-            time.sleep(0.2)
-            self.music_player.set_volume2(0.05)
-
+            self.music_player.set_volume2(volume)
