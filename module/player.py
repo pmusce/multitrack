@@ -12,9 +12,9 @@ class Player():
   def __init__(self):
     self.sound1 = wave.open("pizzica/drums.wav", 'rb')
     self.sound2 = wave.open("pizzica/guitar.wav", 'rb')
-    self.sound3 = wave.open("pizzica/rithm.wav", 'rb')
-    self.volume1 = 0
-    self.volume2 = 0
+    #self.sound3 = wave.open("pizzica/rithm.wav", 'rb')
+    self.volume1 = 0.1
+    self.volume2 = 0.1
 
     def callback(in_data, frame_count, time_info, status):
       data1 = self.sound1.readframes(frame_count)
@@ -23,9 +23,9 @@ class Player():
 
       decodeddata1 = numpy.fromstring(data1, numpy.int16)
       decodeddata2 = numpy.fromstring(data2, numpy.int16)
-      decodeddata3 = numpy.fromstring(data3, numpy.int16)
+     #decodeddata3 = numpy.fromstring(data3, numpy.int16)
 
-      newdata = (decodeddata1 * self.volume1 + decodeddata2 * self.volume2 + decodeddata3 * 1).astype(numpy.int16)
+      newdata = (decodeddata1 * self.volume1 + decodeddata2 * self.volume2).astype(numpy.int16)
 
       return (newdata.tostring(), pyaudio.paContinue)
 

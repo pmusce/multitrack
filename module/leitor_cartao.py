@@ -43,8 +43,6 @@ class LeitorCartao(threading.Thread):
 
     def run(self):
         # Set volumes to 0 and play music
-        self.music_player.set_volume1(0)
-        self.music_player.set_volume2(0)
         self.music_player.play()
 
         print "%s. Run... " % self.name
